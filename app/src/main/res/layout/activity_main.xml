@@ -1,52 +1,192 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    tools:context="parkgyu7.mytourtime.MainActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="parkgyu7.mytourtime.MainActivity">
+    android:fitsSystemWindows="true">
 
-    <Button
-        android:id="@+id/newTourBtn"
-        android:layout_width="206dp"
-        android:layout_height="51dp"
-        android:layout_marginTop="8dp"
-        android:text="NEW"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tourList"
-        app:layout_constraintVertical_bias="0.407" />
+    <RelativeLayout
+        android:id="@+id/mlayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tourCount"
-        android:layout_width="60dp"
-        android:layout_height="20dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
-        android:gravity="right"
-        android:text="Tour Count"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toTopOf="@+id/newTourBtn"
-        app:layout_constraintHorizontal_bias="0.879"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tourList"
-        app:layout_constraintVertical_bias="0.285" />
 
-    <ListView
-        android:id="@+id/tourList"
-        android:layout_width="305dp"
-        android:layout_height="330dp"
-        android:layout_marginTop="28dp"
-        android:background="@android:color/darker_gray"
-        android:cacheColorHint="#00000000"
-        android:divider="#FF1D1D1D"
-        android:dividerHeight="0.2dp"
-        android:listSelector="#00000000"
-        app:layout_constraintHorizontal_bias="0.506"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</android.support.constraint.ConstraintLayout>
+        <TabHost
+            android:id="@+id/tabHost1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <!-- TabWidget의 id값이 반드시 "tabs"로 지정되어야 함. -->
+                <TabWidget
+                    android:id="@android:id/tabs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <!-- FrameLayout의 id값이 반드시 "tabcontent"로 지정되어야 함. -->
+                <FrameLayout
+                    android:id="@android:id/tabcontent"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:paddingTop="8dp">
+
+                    <!-- 첫 번째 페이지. content1 -->
+                    <LinearLayout
+                        android:id="@+id/content1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="8dp"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="30dp"
+                            android:layout_gravity="bottom"
+                            android:background="@color/colorAccent"
+                            android:gravity="bottom"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/tourCount"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_marginBottom="2dp"
+                                android:layout_weight="1"
+                                android:gravity="bottom|left|center"
+                                android:paddingLeft="6dp"
+                                android:text="Tour Count"
+                                android:textColor="@color/colorBackgroundTheme"
+                                android:textSize="14sp" />
+
+                            <Button
+                                android:id="@+id/selectModeBtn"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:background="@drawable/ic_check_box_black_24dp"
+                                android:backgroundTint="@color/colorBackgroundTheme"
+                                android:enabled="false" />
+                        </LinearLayout>
+
+                        <ListView
+                            android:id="@+id/tourList"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:choiceMode="multipleChoice"
+                            android:clipToPadding="false"
+                            android:divider="@color/colorPrimaryDark"
+                            android:listSelector="#00000000"
+                            android:paddingBottom="48dp" />
+
+                    </LinearLayout>
+
+                    <!-- 두 번째 페이지. content2 -->
+                    <LinearLayout
+                        android:id="@+id/content2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="30dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/favoriteTourCount"
+                                android:layout_width="match_parent"
+                                android:layout_height="30dp"
+                                android:layout_marginBottom="2dp"
+                                android:layout_weight="1"
+                                android:background="@color/colorAccent"
+                                android:gravity="bottom|left"
+                                android:paddingBottom="2dp"
+                                android:paddingLeft="6dp"
+                                android:text="Tour Count"
+                                android:textColor="@color/colorBackgroundTheme"
+                                android:textSize="14sp" />
+                        </LinearLayout>
+
+                        <ListView
+                            android:id="@+id/favoritetourlist"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:choiceMode="singleChoice"
+                            android:clipToPadding="false"
+                            android:divider="@color/colorPrimaryDark"
+                            android:paddingBottom="48dp" />
+
+                    </LinearLayout>
+
+                    <!-- 세 번째 페이지. content3 -->
+                    <LinearLayout
+                        android:id="@+id/content3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="30dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/doneTourCount"
+                                android:layout_width="match_parent"
+                                android:layout_height="30dp"
+                                android:layout_marginBottom="2dp"
+                                android:layout_weight="1"
+                                android:background="@color/colorAccent"
+                                android:gravity="bottom|left"
+                                android:paddingBottom="2dp"
+                                android:paddingLeft="6dp"
+                                android:text="Tour Count"
+                                android:textColor="@color/colorBackgroundTheme"
+                                android:textSize="14sp" />
+                        </LinearLayout>
+
+                        <ListView
+                            android:id="@+id/donetourlist"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:choiceMode="singleChoice"
+                            android:clipToPadding="false"
+                            android:divider="@color/colorPrimaryDark"
+                            android:paddingBottom="48dp" />
+
+                    </LinearLayout>
+                </FrameLayout>
+            </LinearLayout>
+        </TabHost>
+
+
+        <!-- 플로팅 액션 버튼 추가 -->
+        <!--
+        1. 버튼 색깔 바꿀려면 theme 옵션을 사용하여 colorAccent 색깔을 바꾼다
+        2. 크기를 변경할려면 fabSize 옵션을 사용한다 (normal , mini)
+        3. 이미지 변경은 src 옵션에서 한다
+        -->
+        <android.support.design.widget.FloatingActionButton
+        android:id="@+id/newTourfab"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="16dp"
+        app:theme="@style/AppTheme"
+        app:fabSize="normal"
+        android:elevation="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/content_new" />
+    </RelativeLayout>
+
+</android.support.design.widget.CoordinatorLayout>

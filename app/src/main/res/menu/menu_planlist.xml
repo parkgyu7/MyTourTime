@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/tourTitleModify"
+        android:orderInCategory="100"
+        android:title="여행 제목 수정하기" />
+    <item
+        android:id="@+id/tourDateModify"
+        android:orderInCategory="100"
+        android:title="여행 날짜 수정하기" />
+    <item
+        android:id="@+id/tourDelete"
+        android:orderInCategory="100"
+        android:title="여행 삭제하기" />
+    <item
+        android:id="@+id/PlanListViewModeChange"
+        android:orderInCategory="100"
+        android:title="보기 모드 변경" />
+</menu>

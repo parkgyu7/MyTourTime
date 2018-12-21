@@ -15,12 +15,16 @@ public class TourListItem {
         this.mData= obj;
     }
 
-    public TourListItem(String tourId, String tourTitle, String tourFirstDate, String tourLastDate) {
+    public TourListItem(String tourId, String tourTitle, String tourFirstDate, String tourLastDate, String tourFavorite, String tourDone) {
         mId = tourId;
-        mData = new String[3];
-        mData[0] = tourTitle;
-        mData[1] = tourFirstDate;
-        mData[2] = tourLastDate;
+        mData = new String[6];
+        mData[0] = tourId;
+        mData[1] = tourTitle;
+        mData[2] = tourFirstDate;
+        mData[3] = tourLastDate;
+        mData[4] = tourFavorite;
+        mData[5] = tourDone;
+
     }
 
 

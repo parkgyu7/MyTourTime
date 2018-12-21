@@ -1,28 +1,42 @@
 package parkgyu7.mytourtime;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Typeface;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
-
-import parkgyu7.mytourtime.db.PlanDatabase;
 
 /**
  * Created by Administrator on 2018-02-27.
  */
 
+
 public class TourListAdapter extends BaseAdapter {
 
     public static final String TAG = "TourListAdapter";
+
     private Context mContext;
     private List<TourListItem> mItems = new ArrayList<TourListItem>();
 
-    Button deleteTourBtn;
+
+    TextView DdayTxtView;
+
+    private String tourTitle;
+    private String tourFirstDay;
+    private String tourLastDay;
+    private String favoriteChecker;
+    private String tourDone;
 
     public TourListAdapter(Context mContext) {
         this.mContext = mContext;
@@ -36,7 +50,6 @@ public class TourListAdapter extends BaseAdapter {
     public void addItem(TourListItem it) {
         mItems.add(it);
     }
-
     public void setListItems(List<TourListItem> lit) {
         mItems = lit;
     }
@@ -68,6 +81,7 @@ public class TourListAdapter extends BaseAdapter {
         return position;
     }
 
+
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
 
@@ -79,65 +93,140 @@ public class TourListAdapter extends BaseAdapter {
             itemView = (TourListItemView) convertView;
         }
 
+
+        // get item data
+
+        tourTitle = (String) mItems.get(position).getData(1);
+        tourFirstDay = (String) mItems.get(position).getData(2);
+        tourLastDay = (String) mItems.get(position).getData(3);
+        favoriteChecker = (String) mItems.get(position).getData(4);
+        tourDone = (String) mItems.get(position).getData(5);
+
+
         // set current item data
-        itemView.setContents(0, ((String) mItems.get(position).getData(0)));
-        itemView.setContents(1, ((String) mItems.get(position).getData(1)));
-        itemView.setContents(2, ((String) mItems.get(position).getData(2)));
+        itemView.setContents(1, "title : " + tourTitle + " / id :" + mItems.get(position).getId());         // title
+        itemView.setContents(2, tourFirstDay);      // first day
+        itemView.setContents(3, tourLastDay);       // last day
 
 
-        deleteTourBtn = (Button) itemView.findViewById(R.id.tourItemOptBtn);
-        deleteTourBtn.setOnClickListener(new View.OnClickListener() {
+        // TOUR_ITEM FAVORITE BUTTON
+        Button tourFavoriteBtn = (Button) itemView.findViewById(R.id.tourFavoriteBtn);
+
+        if (favoriteChecker.equals("off")) {
+            tourFavoriteBtn.setBackground(ContextCompat.getDrawable(mContext, R.drawable.staroff));
+        } else {
+            tourFavoriteBtn.setBackground(ContextCompat.getDrawable(mContext, R.drawable.staron));
+        }
+
+        tourFavoriteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                deleteTour(position);
+                changeFavorite(mItems.get(position).getId(),(String) mItems.get(position).getData(4));
             }
         });
+
+
+        // TOUR_DONE PROCESS
+        TextView tourItemTourTitle = (TextView) itemView.findViewById(R.id.tourItemTourTitle);
+        if (tourDone.equals("off")) {
+            tourItemTourTitle.setPaintFlags(0);
+            tourItemTourTitle.setTypeface(null, Typeface.BOLD);
+        }else{
+            tourItemTourTitle.setPaintFlags(tourItemTourTitle.getPaintFlags()| Paint.STRIKE_THRU_TEXT_FLAG);}
+
+
+
+
+        // TOUR_ITEM OPTION BUTTON
+        Button tourItemOptBtn = (Button) itemView.findViewById(R.id.tourItemOptBtn);
+        tourItemOptBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tourItemOption(mItems.get(position).getId(),
+                        (String) mItems.get(position).getData(1),
+                        (String) mItems.get(position).getData(2),
+                        (String) mItems.get(position).getData(3),
+                        (String) mItems.get(position).getData(4),
+                        (String) mItems.get(position).getData(5));
+
+
+            }
+        });
+
+        // TOUR_ITME CLICK
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                viewTourPlanList(position);
+                viewTourPlanList(mItems.get(position).getId(),
+                        (String) mItems.get(position).getData(1),
+                        (String) mItems.get(position).getData(2),
+                        (String) mItems.get(position).getData(3),
+                        (String) mItems.get(position).getData(4));
             }
         });
+
+
+        // TOUR D-day set
+        DdayTxtView = (TextView) itemView.findViewById(R.id.DdayTxt);
+        setTourDday(tourFirstDay,tourLastDay);
 
         return itemView;
 
     }
 
-    /**
-     * Tour plan보기
-     */
 
-    public void viewTourPlanList(int position){
-        ((MainActivity)mContext).viewTourPlanList(position);
+
+    public void changeFavorite (String id, String favorite){
+        ((MainActivity)mContext).changeFavorite(id,favorite);
     }
 
-    /**
-     * 메모 삭제
-     */
-    public void deleteTour(int position) {
 
-        String mTourId = mItems.get(position).getId();
-
-        // delete PLAN record
-        Log.d(TAG, "deleting previous PLAN ");
-        String SQL = "delete from " + PlanDatabase.TABLE_PLAN +
-                " where TOUR_ID = '" + mTourId + "'";
-        Log.d(TAG, "SQL : " + SQL);
-        if (MainActivity.mDatabase != null) {
-            MainActivity.mDatabase.execSQL(SQL);
-        }
-
-        // delete TOUR record
-        Log.d(TAG, "deleting previous TOUR record : " + mTourId);
-        SQL = "delete from " + PlanDatabase.TABLE_TOUR +
-                " where _id = '" + mTourId + "'";
-        Log.d(TAG, "SQL : " + SQL);
-        if (MainActivity.mDatabase != null) {
-            MainActivity.mDatabase.execSQL(SQL);
-        }
-
-        ((MainActivity)mContext).loadTourListData();
+    public void viewTourPlanList(String tourId,String tourTitle,String tourFirstDay,String tourLastDay,String favoriteChecker){
+        ((MainActivity)mContext).viewTourPlanList(tourId,tourTitle,tourFirstDay,tourLastDay,favoriteChecker);
     }
 
+    public void tourItemOption(String tourId,String tourTitle,String tourFirstDay,String tourLastDay,String favoriteChecker, String doneChecker){
+        ((MainActivity)mContext).tourItemOption(tourId,tourTitle,tourFirstDay,tourLastDay,favoriteChecker,doneChecker);
+    }
+
+    public void setTourDday(String fday, String lday){
+
+        Calendar todayCal = Calendar.getInstance();
+
+        Date firstDate = new Date();
+        Date lastDate = new Date();
+
+        try {
+            firstDate = BasicInfo.datetimeFormat_Date.parse(fday);
+            lastDate = BasicInfo.datetimeFormat_Date.parse(lday);
+        } catch (Exception ex) {
+            Log.d(TAG, "Exception in parsing date : " + fday);
+        }
+
+        long today = todayCal.getTimeInMillis();
+        long firstDay = firstDate.getTime();
+        long lastDay = lastDate.getTime();
+
+        int dDay = 0;
+        int src = (24 * 60 * 60 * 1000);
+
+        if (today<firstDay){
+            dDay = (int)(firstDay-today)/src;
+            DdayTxtView.setText("D-"+dDay);
+            DdayTxtView.setTextColor(ContextCompat.getColor(mContext,R.color.colorAccent));
+
+        }else if (today>lastDay){
+            dDay = (int)(today-lastDay)/src;
+            DdayTxtView.setText("D+"+dDay);
+            DdayTxtView.setTextColor(ContextCompat.getColor(mContext,R.color.colorPrimary));
+
+        }else {
+            DdayTxtView.setText("D-Day");
+            DdayTxtView.setTextColor(Color.RED);
+        }
+
+
+
+    }
 
 }

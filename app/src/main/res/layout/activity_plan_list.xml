@@ -1,98 +1,139 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/dayplan"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <LinearLayout
-        android:id="@+id/upside"
+        android:id="@+id/upperlayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_weight="1"
+        android:orientation="vertical">
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_weight="1">
-
+            android:background="@color/colorBackgroundTheme"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:orientation="horizontal"
+            android:paddingBottom="4dp">
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-                >
+                android:layout_width="320dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
 
-                <EditText
+                <TextView
                     android:id="@+id/tourTitleTxt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
                     android:layout_weight="1"
-                    android:background="@android:color/holo_blue_dark"
-                    android:singleLine="false"
+                    android:fontFamily="@font/roboto_medium"
+                    android:paddingLeft="10dp"
                     android:text="Tour Title"
-                    android:textSize="18sp"
-                    />
+                    android:textColor="@color/colorAccent"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/tourPeriodTxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/roboto_regular"
+                    android:paddingLeft="10dp"
+                    android:text="Tour Period"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="14sp" />
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/tourPeriodTxt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/holo_red_light"
-                android:text="Tour Period"
-                android:textColor="@color/colorAccent"
-                android:textSize="12sp" />
+            <Button
+                android:id="@+id/planListOptBtn"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:background="@drawable/opt_icon_1" />
 
-            <TextView
-                android:id="@+id/curDateTxt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/holo_orange_dark"
-                android:text="n일차 (yyyy-mm-dd)"
-                android:textColor="@color/colorAccent"
-                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/dateLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="4dp"
+            android:paddingTop="4dp">
+
+            <Button
+                android:id="@+id/prevDayBtn"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_gravity="center"
+                android:background="@drawable/ic_left_24dp" />
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_weight="1"
+                android:orientation="vertical">
 
-                <Button
-                    android:id="@+id/prevDayBtn"
-                    android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/nDayTxt"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="prev" />
+                    android:fontFamily="@font/roboto_medium"
+                    android:gravity="center"
+                    android:text="n일차"
+                    android:textColor="@android:color/holo_red_light"
+                    android:textSize="18sp" />
 
-                <Button
-                    android:id="@+id/addPlanBtn"
-                    android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/curDateTxt"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:text="add" />
-
-                <Button
-                    android:id="@+id/nextDayBtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="next" />
+                    android:gravity="center"
+                    android:text="(yyyy-mm-dd)" />
             </LinearLayout>
+
+            <Button
+                android:id="@+id/nextDayBtn"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_gravity="center"
+                android:background="@drawable/ic_right_24dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorAccent"
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/itemCount"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="plan count"
-                android:textSize="12dp"
 
-                />
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginBottom="0.5dp"
+                android:layout_marginTop="0.5dp"
+                android:layout_weight="1"
+                android:background="@color/colorBackgroundTheme"
+                android:gravity="left"
+                android:paddingBottom="4dp"
+                android:paddingLeft="8dp"
+                android:paddingTop="4dp"
+                android:text="plan count"
+                android:textColor="@android:color/holo_orange_dark"
+                android:textSize="14sp" />
 
         </LinearLayout>
 
@@ -102,11 +143,27 @@
         android:id="@+id/planListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/upside"
-        android:cacheColorHint="#00000000"
-        android:divider="@android:color/darker_gray"
-        android:listSelector="#00000000"
-        android:dividerHeight="0.2dp"
-        />
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="false"
+        android:layout_below="@+id/upperlayout"
+        android:layout_weight="1"
+        android:divider="@color/colorAccent"
+        android:dividerHeight="0.5dp"
+        android:drawSelectorOnTop="true"
+        android:footerDividersEnabled="true"
+        android:headerDividersEnabled="true"
+        android:listSelector="#00000000" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/newPlanfab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/planListView"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
+        android:elevation="16dp"
+        android:src="@drawable/content_new" />
+
 
 </RelativeLayout>

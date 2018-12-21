@@ -18,8 +18,11 @@ public class PlanListAdapter extends BaseAdapter {
 
     public static final String TAG = "PlanListAdapter";
 
+
     private Context mContext;
     private List<PlanListItem> mItems = new ArrayList<PlanListItem>();
+
+
     Button optBtn;
 
     public PlanListAdapter(Context mContext) {
@@ -28,12 +31,11 @@ public class PlanListAdapter extends BaseAdapter {
     public void clear() {
         mItems.clear();
     }
+
     public void addItem(PlanListItem it) {
         mItems.add(it);
     }
-    public void setListItems(List<PlanListItem> lit) {
-        mItems = lit;
-    }
+
 
     @Override
     public int getCount() {
@@ -43,6 +45,10 @@ public class PlanListAdapter extends BaseAdapter {
     @Override
     public Object getItem(int position) {
         return mItems.get(position);
+    }
+
+    public void setListItems(List<PlanListItem> lit) {
+        mItems = lit;
     }
 
     public boolean areAllItemsSelectable() {
@@ -76,7 +82,7 @@ public class PlanListAdapter extends BaseAdapter {
             // plan DateTime 값을 받아옴.
 
         itemView.setContents(0, ((String) mItems.get(position).getData(1)));      // plan time
-        itemView.setContents(1, ((String) mItems.get(position).getData(2))+" / mItems Id : " +mItems.get(position).getId() );      // Plan Title
+        itemView.setContents(1, ((String) mItems.get(position).getData(2)));      // Plan Title
 
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,7 +99,11 @@ public class PlanListAdapter extends BaseAdapter {
             }
         });
 
+
+
         return itemView;
+
+
     }
 
     private void delPlanItem(int position){

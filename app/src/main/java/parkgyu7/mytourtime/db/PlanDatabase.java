@@ -160,6 +160,8 @@ public class PlanDatabase {
 		        			+ "  TOUR_TITLE TEXT, "									// TOUR TITLE
 		        			+ "  TOUR_firstDATE DATE, "								// TOUR FIRST DATE
 		        			+ "  TOUR_lastDATE DATE, "								// TOUR LAST DATE
+							+ "  TOUR_FAVORITE TEXT DEFAULT 'off', "				// TOUR FAVORITE check
+							+ "  TOUR_DONE TEXT DEFAULT 'off', "					// TOUR DONE check
 		        			+ "  CREATE_DATE TIMESTAMP DEFAULT CURRENT_TIMESTAMP "	// TOUR 작성 날짜
 		        			+ ")";
             try {
@@ -186,7 +188,9 @@ public class PlanDatabase {
 					+ "  TOUR_ID INTEGER, "                            			// TOUR ID -> JOIN
 					+ "  PLAN_DATETIME TIMESTAMP, "                    		 	// PLAN DATETIME
 					+ "  PLAN_TITLE TEXT, "                           			// PLAN TITLE
-					+ "  PLAN_BODY TEXT, "                       			// PLAN DETAIL
+					+ "  PLAN_BODY TEXT, "                       				// PLAN DETAIL
+					+ "  PLAN_FAVORITE TEXT DEFAULT 'off', "					// PLAN FAVORITE check
+					+ "  PLAN_DONE TEXT DEFAULT 'off', "						// PLAN DONE check
 					+ "  CREATE_DATE TIMESTAMP DEFAULT CURRENT_TIMESTAMP " 		// PLAN 작성 날짜
 					+ ")";
 			try {
